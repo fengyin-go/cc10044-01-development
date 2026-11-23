@@ -206,6 +206,16 @@ SEED_ROWS: dict[str, list[dict[str, Any]]] = {
          "目标数据集": "legacy_raw_logs", "快照时间点": "2026-11-20T00:00:00Z",
          "快照类型": "full", "存储路径": "/snapshots/legacy_raw_logs/full_20261120", "文件大小": ""},
     ],
+    # 来源表版本台账：每条记录表示一次入表后生效的真实来源版本，
+    # 快照只能解析截止时间（含）之前的最新版本，之后入表的新版本不会串入补做快照。
+    "source_version": [
+        {"id": 1, "source_table": "ods_orders", "version": "ods_orders#v2026-11-20-01",
+         "effective_time": "2026-11-20T23:30:00Z", "remark": "订单明细日切基线"},
+        {"id": 2, "source_table": "ods_refunds", "version": "ods_refunds#v2026-11-20-01",
+         "effective_time": "2026-11-20T23:45:00Z", "remark": "退款明细日切基线"},
+    ],
+    # 成组快照登记表：内存态由快照服务按登记动作写入，这里初始为空。
+    "snapshot_group": [],
     "data_lake_audit": [
         {"id": 1, "status": "审计中", "pending": True, "abnormal": False,
          "审计范围": "全平台20个业务模块", "审计时间": "2026-11-21",
